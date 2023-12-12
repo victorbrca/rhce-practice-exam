@@ -12,11 +12,11 @@ The content exists in two different places, the website (front end) https://rhce
 
 ## Exam Information
 
-Contains a link for the official exam page, exam schedule page, list of objectives, and more. See [[Exam Information]].
+Contains a link for the official exam page, exam schedule page, list of objectives, and more. See [Exam Information](exam-information.md).
 
 ## Study Resources
 
-A list of books, courses, communities and external practice exams. See [[Study Resources]].
+A list of books, courses, communities and external practice exams. See [Study Resources](study-resources.md).
 
 ## Contributing
 
