@@ -10,16 +10,22 @@ Use the repo below to create VMs for this practice exam:
 
 ### Additional Requirements
 
+**VirtualBox**
+
++ Add an additional '10GB' disk to 'node4'
++ Increase the memory on 'node4' to '1024M'
+
+**Control node**
+
 + Register for a free Red Hat Developer subscription and register the control node. Set it to the 8.4 release.
 + Uninstall Ansible if installed
 + Remove all EPEL repos
 + Add the 'ansible-2.9-for-rhel-8-x86_64-rpms' repo via subscription manager
-+ Add an additional '10GB' disk to 'node4'
-+ Increase the memory on 'node4' to '1024M'
-+ Alternatively, run the following playbook from the control node
+
+Alternatively, run the following playbook from the control node:
 
 ```bash
-cd /vagrant/practice_exams/exam2
+cd /rhce-practice-exam/rhce8/exam2
 ansible-playbook prepare-control.yml
 ```
 

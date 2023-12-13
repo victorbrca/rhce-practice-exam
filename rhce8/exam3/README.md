@@ -10,11 +10,12 @@ Use the repo below to create VMs for this practice exam:
 
 ### Additional Requirements
 
-
 + Register for a free Red Hat Developer subscription and register the control node. Set it to the 8.4 release.
 
+Alternatively, run the following playbook from the control node:
+
 ```bash
-cd /vagrant/practice_exams/exam3
+cd /rhce-practice-exam/rhce8/exam3
 ansible-playbook prepare-control.yml
 ```
 

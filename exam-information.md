@@ -1,6 +1,6 @@
 # Exam Information
 
-A collection of information for the RHCE exam.
+Here you can access the official exam page, where you can learn about the exam format, fees, and registration process. You can also view the exam schedule page, where you can see the dates and times of the upcoming exams. Additionally, you can review the list of objectives, which outlines the topics and skills that are tested on the exam. These resources will help you study effectively and confidently for the exam.
 
 ## Official Links
 

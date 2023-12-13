@@ -1,10 +1,8 @@
 # rhce-practice-exam
 
-This repo/site contains practice exams, as well as information for the Red Hat Certified Engineer (RHCE) certification.
+This is a community-based study guide for the Red Hat Certified Engineer (RHCE) certification exam. You can find practice exams and other useful information on this repo/site. You can also help improve the content by adding, updating, or correcting it. The content is free and open source, and always updated.
 
-It serves as a community study resource for the RHCE exam. The idea is that anyone preparing for the exam can use the information here, as well as contribute (add, update, correct) to make it better. The aim is to have free and open source study content that is always up to date.
-
-The content exists in two different places, the website (front end) https://rhce-practice-exam.org, and the repo (source files) https://github.com/victorbrca/rhce-practice-exam. The website only shows markdown files converted to html. To download the files used in the practice exams, and the answer files, visit the GitHub project page - [GitHub - victorbrca/rhce-practice-exam: A repo containing practice exams for RHCE.](https://github.com/victorbrca/rhce-practice-exam).
+The content is available in two places: the website (front end) https://rhce-practice-exam.org, and the repo (source files) https://github.com/victorbrca/rhce-practice-exam. The website displays markdown files as html. To get the files for the practice exams and the answers, go to the GitHub project page - [GitHub - victorbrca/rhce-practice-exam: A repo containing practice exams for RHCE.](https://github.com/victorbrca/rhce-practice-exam).
 
 ## Practice Exams
 
@@ -12,11 +10,11 @@ The content exists in two different places, the website (front end) https://rhce
 
 ## Exam Information
 
-Contains a link for the official exam page, exam schedule page, list of objectives, and more. See [Exam Information](exam-information.md).
+If you are preparing for the exam, you can find useful resources in this section. Contains a link for the official exam page, exam schedule page, list of objectives, and more. See [Exam Information](exam-information.md).
 
 ## Study Resources
 
-A list of books, courses, communities and external practice exams. See [Study Resources](study-resources.md).
+Looking for study resources? Here are some books, courses, communities and practice exams. See [Study Resources](study-resources.md).
 
 ## Contributing
 
@@ -32,3 +30,11 @@ c. Create a pull request
 I will review the changes and merge it to the main branch accordingly. Once that is done, I will regenerate the HTML files with the changes.
 
 Note that only markdown files are published as html.
+
+## Author
+
+**Victor Mendonça**
+
++ Site - [Victor Mendonça](https://victormendonca.com/)
++ GitHub - [victorbrca](https://github.com/victorbrca)
++ Twitter - [@victorbrca](https://twitter.com/victorbrca)

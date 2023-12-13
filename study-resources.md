@@ -1,5 +1,7 @@
 # Study Resources
 
+If you want to prepare for your exams, you might find these resources helpful. They include books, courses, communities and practice exams that cover various topics and levels. You can use them to review the material, learn new skills, interact with other learners and test your knowledge.
+
 ## Books
 
 + [RHCE 8 prep book by Sander Van Vugt](https://www.amazon.com/RHCE-EX294-Cert-Guide-Certification/dp/0136872433)
