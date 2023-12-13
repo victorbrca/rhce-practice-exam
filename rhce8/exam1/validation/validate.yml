@@ -104,12 +104,12 @@
         - name: Copies key
           copy:
             src: /home/automation/plays/id_rsa
-            dest: /vagrant/practice_exams/exam1/validation/automation_id_rsa
+            dest: /rhce-practice-exam/rhce8/exam1/validation/automation_id_rsa
             owner: vagrant
             group: vagrant
             remote_src: true
-            mode: 0600
-            force: yes
+            mode: '0600'
+            force: true
           changed_when: false
 
       rescue:
@@ -124,7 +124,7 @@
   remote_user: automation
 
   vars:
-    - ansible_ssh_private_key_file: /vagrant/practice_exams/exam1/validation/automation_id_rsa
+    - ansible_ssh_private_key_file: /rhce-practice-exam/rhce8/exam1/validation/automation_id_rsa
 
   tasks:
     - name: Task 2 - Ad-Hoc Commands on other nodes
@@ -145,7 +145,6 @@
       tags: task2
 
 #-- Task 3 ---------------------------------------------------------------------
-
 
     - name: Task 3 - File Content
       block:
@@ -247,6 +246,12 @@
 
 #-- Task 6 ---------------------------------------------------------------------
 
+- hosts: control
+  gather_facts: false
+  become: true
+
+  tasks:
+
     - name: Task 6 - Users and Groups on control node
       block:
 
@@ -255,6 +260,11 @@
             path: "{{ item }}"
           loop:
             - '/home/automation/plays/vars/user_list.yml'
+            - '/home/automation/plays/playbooks/users.yml'
+            - '/home/automation/plays/webservers_rsa'
+            - '/home/automation/plays/webservers_rsa'
+            - '/home/automation/plays/database_rsa'
+            - '/home/automation/plays/database_rsa.pub'
           register: check_file_exists
 
         - name: Checking that all files were created
@@ -265,6 +275,22 @@
           loop: "{{ check_file_exists.results }}"
           loop_control:
             label: "{{ item.stat.path }}"
+
+        - name: Copies key
+          copy:
+            src: "/home/automation/plays/{{ item }}"
+            dest: "/rhce-practice-exam/rhce8/exam1/validation/{{ item }}"
+            owner: vagrant
+            group: vagrant
+            remote_src: true
+            mode: '0600'
+            force: true
+          changed_when: false
+          loop:
+            - webservers_rsa
+            - webservers_rsa.pub
+            - database_rsa
+            - database_rsa.pub
 
       rescue:
         - name: Print when errors
@@ -288,19 +314,22 @@
         uid: 2201
       - username: patrick
         uid: 2202
+    - user_password: devops
+    - database_password: devops
 
   tasks:
 
     - name: Task 6 - Users and Groups on other nodes
       block:
 
-      - name: Check webserver users
+      - name: Create webserver users
         user:
           name: "{{ item.username }}"
           uid: "{{ item.uid }}"
           groups: wheel
           shell: '/bin/bash'
-          ssh_key_file: '.ssh/id_rsa'
+          update_password: on_create
+          password: "{{ user_password | password_hash('sha512') }}"
         with_items: "{{ users }}"
         register: user_output
         when:
@@ -308,19 +337,100 @@
         check_mode: true
         failed_when: user_output.changed == true
 
-      - name: Check database users
+      - name: Create .ssh folder for webserver users
+        file:
+          path: "/home/{{ item.username }}/.ssh"
+          state: directory
+          owner: "{{ item.username }}"
+          group: "{{ item.username }}"
+          mode: '0700'
+        with_items: "{{ users }}"
+        register: webserver_sshdir_output
+        when:
+          - item.uid | string | regex_search('^1') and 'webservers' in group_names
+        check_mode: true
+        failed_when: webserver_sshdir_output.changed == true
+
+      - name: Upload SSH private key for webserver users
+        copy:
+          src: /rhce-practice-exam/rhce8/exam1/validation/webservers_rsa
+          dest: "/home/{{ item.username }}/.ssh/id_rsa"
+          owner: "{{ item.username }}"
+          group: "{{ item.username }}"
+          mode: '0700'
+        with_items: "{{ users }}"
+        register: webserver_sshkey_output
+        when:
+          - item.uid | string | regex_search('^1') and 'webservers' in group_names
+        check_mode: true
+        failed_when: webserver_sshkey_output.changed == true
+
+      - name: Set authorized key for webserver users
+        authorized_key:
+          user: "{{ item.username }}"
+          state: present
+          key: "{{ lookup('file', '/rhce-practice-exam/rhce8/exam1/validation/webservers_rsa.pub') }}"
+        with_items: "{{ users }}"
+        register: webserver_authorizedkey_output
+        when:
+          - item.uid | string | regex_search('^1') and 'webservers' in group_names
+        check_mode: true
+        failed_when: webserver_authorizedkey_output.changed == true
+
+      - name: Create database users
         user:
           name: "{{ item.username }}"
           uid: "{{ item.uid }}"
           groups: wheel
           shell: '/bin/bash'
-          ssh_key_file: '.ssh/id_rsa'
+          update_password: on_create
+          password: "{{ user_password | password_hash('sha512') }}"
         with_items: "{{ users }}"
-        register: user_output
+        register: database_user_output
         when:
           - item.uid | string | regex_search('^2') and 'database' in group_names
         check_mode: true
-        failed_when: user_output.changed == true
+        failed_when: database_user_output.changed == true
+
+      - name: Create .ssh folder for database users
+        file:
+          path: "/home/{{ item.username }}/.ssh"
+          state: directory
+          owner: "{{ item.username }}"
+          group: "{{ item.username }}"
+          mode: '0700'
+        with_items: "{{ users }}"
+        register: database_sshdir_output
+        when:
+          - item.uid | string | regex_search('^2') and 'database' in group_names
+        check_mode: true
+        failed_when: database_sshdir_output.changed == true
+
+      - name: Upload SSH private key for database users
+        copy:
+          src: /rhce-practice-exam/rhce8/exam1/validation/database_rsa
+          dest: "/home/{{ item.username }}/.ssh/id_rsa"
+          owner: "{{ item.username }}"
+          group: "{{ item.username }}"
+          mode: '0700'
+        with_items: "{{ users }}"
+        register: database_sshkey_output
+        when:
+          - item.uid | string | regex_search('^2') and 'database' in group_names
+        check_mode: true
+        failed_when: database_sshkey_output.changed == true
+
+      - name: Set authorized key for database users
+        authorized_key:
+          user: "{{ item.username }}"
+          state: present
+          key: "{{ lookup('file', '/rhce-practice-exam/rhce8/exam1/validation/database_rsa.pub') }}"
+        with_items: "{{ users }}"
+        register: database_authorizedkey_output
+        when:
+          - item.uid | string | regex_search('^2') and 'database' in group_names
+        check_mode: true
+        failed_when: database_authorizedkey_output.changed == true
 
       rescue:
         - name: Print when errors
@@ -1171,8 +1281,6 @@
             msg: 'Found errors for Task 17'
 
       tags: task17
-
-
 
 #-- Task 18 --------------------------------------------------------------------
 
