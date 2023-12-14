@@ -1,6 +1,8 @@
 # rhce-practice-exam
 
-This is a community-based study guide for the Red Hat Certified Engineer (RHCE) certification exam. You can find practice exams and other useful information on this repo/site. You can also help improve the content by adding, updating, or correcting it. The content is free and open source, and always updated.
+This is a community-based practice exam for the Red Hat Certified Engineer (RHCE) certification exam. You can find practice exams and other useful information on this repo/site. You can also help improve the content by adding, updating, or correcting it. The content is free and open source, and always updated.
+
+![[Pasted image 20231213204306.png]]
 
 The content is available in two places: the website (front end) https://rhce-practice-exam.org, and the repo (source files) https://github.com/victorbrca/rhce-practice-exam. The website displays markdown files as html. To get the files for the practice exams and the answers, go to the GitHub project page - [GitHub - victorbrca/rhce-practice-exam: A repo containing practice exams for RHCE.](https://github.com/victorbrca/rhce-practice-exam).
 
@@ -31,10 +33,17 @@ I will review the changes and merge it to the main branch accordingly. Once that
 
 Note that only markdown files are published as html.
 
-## Author
+## About
+
+### Author
 
 **Victor Mendonça**
 
 + Site - [Victor Mendonça](https://victormendonca.com/)
 + GitHub - [victorbrca](https://github.com/victorbrca)
 + Twitter - [@victorbrca](https://twitter.com/victorbrca)
+
+### Built With
+
++ [Obsidian - Sharpen your thinking](https://obsidian.md/)
++ [GitHub - KosmosisDire/obsidian-webpage-export: Webpage HTML Export lets you export single files or whole vaults as HTML websites or documents. It is similar to publish, but you get direct access to the exported HTML.](https://github.com/KosmosisDire/obsidian-webpage-export)
